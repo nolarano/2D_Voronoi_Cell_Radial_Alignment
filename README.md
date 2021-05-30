@@ -6,20 +6,16 @@ Here are the steps to run the simulation in the paper:
 1. Get the inner and outer cells for each Initial Condition:
 
       a. Each initial condition is labeled IC_625_1 etc. (there are 5)
+          
+      b. You might need to do some trial and error to get Router right (lines 76-77 in main.m) to get the number of cells in the model to match the experiment (average of 121 cells in each pattern). 
       
-      b. Comment out lines 33-36
+      c. In main.m, change K_b to 0.1, lambda1 to 40, and all other lambdas to zero.
       
-      c. You might need to do some trial and error to get Router right (lines 70-71 in main.m) to get the number of cells in the model to match the experiment (average of 121 cells in each pattern). 
+      d. In solver.m comment out lines 251-4. We want to allow the cells to move.
       
-      d. In main.m, change K_b to 0.1, lambda1 to 20, and all other lambdas to zero.
-     
-      e. In create_voroni.m change make sure lines 164/5 are like in the original code, not changing the coefficient in front of A0.
+      e. In diff_e_omega.m, uncomment lines 123-135
       
-      f. In solver.m comment out lines 251-4. We want to allow the cells to move.
-      
-      g. In diff_e_omega.m, uncomment lines 123-135
-      
-      h. Run main.m, and record/save the lists of inside and outside cells as well as the cdat final configuration. 
+      f. Run main.m, and record/save the lists of inside and outside cells as well as the cdat final configuration. 
 
 2. Get the results of varying contractility and stiffness
       
