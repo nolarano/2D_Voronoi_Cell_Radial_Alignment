@@ -2,7 +2,7 @@
 
 Voronoi Cell Model for elife paper "Condensation tendency  with planar isotropic actin gradient induces cell radial alignment in the connected contractile tissue".
 Here are the steps to run the simulation in the paper:
-
+Open Main.m:
 1. Get the inner and outer cells for each Initial Condition:
 
       a. Each initial condition is labeled IC_625_1 etc. (there are 5)
@@ -23,7 +23,7 @@ Here are the steps to run the simulation in the paper:
       
       b. Change K_b to 0, K to 0, lambda1 to 0, lambda 2 &4 to 15. 
       
-      c. In create_voronoi, line 164 will be varied from 1, 0.75, 0.5 (as seen in figure 5 in the paper)
+      c. In create_voronoi, line 164 will be varied from 1, 0.75, 0.5 (as seen in figure 4 in the paper)
       
       d. In solver.m make sure to uncomment lines 251-4 because we don’t want these cells to move now.
       
