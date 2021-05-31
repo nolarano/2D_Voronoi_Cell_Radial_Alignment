@@ -1,4 +1,4 @@
-function [E_omega_dot] = diff_E_omega(Cdat,c2v,vorder,omega_v,pair_index,pair, vertex_list, vertex_outside, vertex_inside, vert_b, boundout, vert_bin)%boundary_list) %,vert_bin, outsidein, boundout) 
+function [E_omega_dot] = diff_E_omega(Cdat,c2v,vorder,omega_v,pair_index,pair, vertex_list, vertex_outside, vertex_inside, vert_b, boundary_list) %,vert_bin, outsidein, boundout) 
 
 global K Lambda1 Lambda2 Lambda3 Lambda4 B inside_cells K_b counter A0 perfcirc_boundary_list rho
 
@@ -13,15 +13,15 @@ Lambda_1 = Lambda1;
 K_1 = K;
 
 for ii = 1:n % go through all cells
-     if ismember(ii,boundout)%boundary_list) %boundout to change outer boundary cells x*K; inside_cells for ring IC = 4*k
+     if ismember(ii, boundary_list) %boundout to change outer boundary cells x*K; inside_cells for ring IC = 4*k
          K_1 = rho*K;%1*K; %change boundary cell stiffness
      else
          K_1 = 1*K;
-% %     elseif ismember(ii, outsidein)
-% %         K_1 = 4*K;
-% %     else
-% %         K_1 = 4*K;
-%      end
+%     elseif ismember(ii, outsidein)
+%         K_1 = 4*K;
+%     else
+%         K_1 = 4*K;
+     end
 %      if ismember(ii, boundout)
 %          Lambda_1 = 4*Lambda1; % ring case
 %      else
