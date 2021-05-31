@@ -56,15 +56,15 @@ boundary = intersect(inside, outside);
 boundary_list = intersect(boundary, inside_cells);
 
 % Ring
-boundout = [];
-boundin = [];
-for i = 1:length(boundary_list)
-    if sqrt(((Cdat(boundary_list(i),1)-450)^2 + (Cdat(boundary_list(i),2)-450)^2)) <= ((R_outer-R_inner)/2 + R_inner)
-        boundin = [boundin boundary_list(i)];
-    else
-        boundout = [boundout boundary_list(i)];
-    end
-end
+% boundout = [];
+% boundin = [];
+% for i = 1:length(boundary_list)
+%     if sqrt(((Cdat(boundary_list(i),1)-450)^2 + (Cdat(boundary_list(i),2)-450)^2)) <= ((R_outer-R_inner)/2 + R_inner)
+%         boundin = [boundin boundary_list(i)];
+%     else
+%         boundout = [boundout boundary_list(i)];
+%     end
+% end
 
 % boundary_list = boundout;  % just for ring IC case rename, comment back for k/A0 simulations
 
@@ -161,75 +161,75 @@ end
 vert_b = [vert_b vert_b(1)];
 
 %% Order inside boundary cells
-coord = [Cdat(boundin,1) Cdat(boundin,2)];
-A = find(coord(:,2) > 450); 
-B = find((coord(A,2)) == min(coord(A,2)));
-start = coord(A(B),:);
-angle_list = acos(((coord(:,1)-450).*(start(1)-450) + (coord(:,2)-450).*(start(2)-450))./(sqrt((coord(:,1)-450).^2 + (coord(:,2)-450).^2)*sqrt((start(1)-450).^2 + (start(2)-450).^2)));
-cell_b = zeros(length(angle_list),1);
-for i = 2:length(A)
-    cell_b(1) = boundin(A(B));
-    C = sort(angle_list(A));
-    cell_b(i) = boundin(find(angle_list == C(i)));
-end
-A2 = find(coord(:,2) < 450);
-for i = 1:length(A2)
-    C = sort(angle_list(A2),'descend');
-    cell_b(i+length(A)) = boundin(find(angle_list == C(i)));
-end
-if Cdat(cell_b(1),1)<450
-    cell_b = cell_b';
-    cell_b = fliplr(cell_b);
-    cell_b = cell_b';
-end
-% Check cell order
-checkorder = zeros(length(cell_b),1);
-for i = 1:length(cell_b)
-    if i == length(cell_b)
-        cell_b(i + 1) = cell_b(1);
-    end
-    for j = 1:length(find(c2c(cell_b(i),:) ==1))
-        cells = find(c2c(cell_b(i),:) == 1);
-        if ismember(cells(j),cell_b(i+1))
-            checkorder(i) = 1; % all ones indicates correct cell order
-        end
-    end
-end
-cell_b(end) = []; % don't want repeated cell used to check order
-% Order boundary vertices and delete repetitions
-vert_bin = [];
-for i = 1:length(cell_b)
-    vert_all = vorder(cell_b(i)).order;
-    vert_all(end) = []; % delete repeated vertex in vorder
-    A = ismember(vert_all, vertex_list);
-    vert_bin = [vert_bin vert_all(A)];
-end
-for i = 1:length(vert_bin)
-    if i > length(vert_bin)
-        break
-    end
-    A = find(vert_bin == vert_bin(i));
-    if length(A) > 1
-        for j = 2
-            vert_bin(A(j)) = [];
-            B = find(vert_bin == vert_bin(i));
-            if length(B) > 1
-                for k = 2
-                    vert_bin(B(k)) = [];
-                    C = find(vert_bin == vert_bin(i));
-                    if length(C) > 1
-                        for l = 2
-                            vert_bin(C(l)) = [];
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-vert_bin = [vert_bin vert_bin(1)];
+% coord = [Cdat(boundin,1) Cdat(boundin,2)];
+% A = find(coord(:,2) > 450); 
+% B = find((coord(A,2)) == min(coord(A,2)));
+% start = coord(A(B),:);
+% angle_list = acos(((coord(:,1)-450).*(start(1)-450) + (coord(:,2)-450).*(start(2)-450))./(sqrt((coord(:,1)-450).^2 + (coord(:,2)-450).^2)*sqrt((start(1)-450).^2 + (start(2)-450).^2)));
+% cell_b = zeros(length(angle_list),1);
+% for i = 2:length(A)
+%     cell_b(1) = boundin(A(B));
+%     C = sort(angle_list(A));
+%     cell_b(i) = boundin(find(angle_list == C(i)));
+% end
+% A2 = find(coord(:,2) < 450);
+% for i = 1:length(A2)
+%     C = sort(angle_list(A2),'descend');
+%     cell_b(i+length(A)) = boundin(find(angle_list == C(i)));
+% end
+% if Cdat(cell_b(1),1)<450
+%     cell_b = cell_b';
+%     cell_b = fliplr(cell_b);
+%     cell_b = cell_b';
+% end
+% % Check cell order
+% checkorder = zeros(length(cell_b),1);
+% for i = 1:length(cell_b)
+%     if i == length(cell_b)
+%         cell_b(i + 1) = cell_b(1);
+%     end
+%     for j = 1:length(find(c2c(cell_b(i),:) ==1))
+%         cells = find(c2c(cell_b(i),:) == 1);
+%         if ismember(cells(j),cell_b(i+1))
+%             checkorder(i) = 1; % all ones indicates correct cell order
+%         end
+%     end
+% end
+% cell_b(end) = []; % don't want repeated cell used to check order
+% % Order boundary vertices and delete repetitions
+% vert_bin = [];
+% for i = 1:length(cell_b)
+%     vert_all = vorder(cell_b(i)).order;
+%     vert_all(end) = []; % delete repeated vertex in vorder
+%     A = ismember(vert_all, vertex_list);
+%     vert_bin = [vert_bin vert_all(A)];
+% end
+% for i = 1:length(vert_bin)
+%     if i > length(vert_bin)
+%         break
+%     end
+%     A = find(vert_bin == vert_bin(i));
+%     if length(A) > 1
+%         for j = 2
+%             vert_bin(A(j)) = [];
+%             B = find(vert_bin == vert_bin(i));
+%             if length(B) > 1
+%                 for k = 2
+%                     vert_bin(B(k)) = [];
+%                     C = find(vert_bin == vert_bin(i));
+%                     if length(C) > 1
+%                         for l = 2
+%                             vert_bin(C(l)) = [];
+%                         end
+%                     end
+%                 end
+%             end
+%         end
+%     end
+% end
+% vert_bin = [vert_bin vert_bin(1)];
 
-[E] = diff_E_omega(Cdat,c2v,vorder,omega,pair_index,pair, vertex_list, vertex_outside, vertex_inside, vert_b, boundout, vert_bin);%boundary_list); %, vert_bin, outsidein, boundout);
+[E] = diff_E_omega(Cdat,c2v,vorder,omega,pair_index,pair, vertex_list, vertex_outside, vertex_inside, vert_b, boundary_list);%boundary_list); %, vert_bin, outsidein, boundout);
 
 % R = sqrt((Cdat(:,1)-450).^2 + (Cdat(:,2)-450).^2);
 % 
