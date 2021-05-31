@@ -1,4 +1,4 @@
-2D_Voronoi_Cell_Radial_Alignment (MATLAB CODEs)
+2D_Voronoi_Cell_Radial_Alignment (MATLAB CODEs) (Author: Nonthakorn Olaranont and Sarah Pierre)
 
 Voronoi Cell Model for elife paper "Condensation tendency  with planar isotropic actin gradient induces cell radial alignment in the connected contractile tissue".
 Here are the steps to run the simulation in the paper:
